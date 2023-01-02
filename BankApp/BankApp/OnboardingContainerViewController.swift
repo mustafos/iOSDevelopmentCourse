@@ -34,7 +34,7 @@ class OnboardingContainerViewController: UIViewController {
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         self.pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         
-        let page1 = OnboardingViewController(heroImageName: "delorean", titleText: "BankApp is faster and more reliable banking in your pocket. We present another way of looking at things.")
+        let page1 = OnboardingViewController(heroImageName: "delorean", titleText: "BankApp is faster and more reliable banking in your pocket.")
         let page2 = OnboardingViewController(heroImageName: "world", titleText: "Move your money around the world quickly and securely.")
         let page3 = OnboardingViewController(heroImageName: "thumbs", titleText: "Learn more at github.com/mustafos")
         

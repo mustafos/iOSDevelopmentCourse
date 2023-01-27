@@ -11,6 +11,7 @@ class AccountSummaryViewController: UIViewController {
     
     // Request Models
     var profile: Profile?
+    var accounts: [Account] = []
         
     // View Models
     var headerViewModel = AccountSummaryHeaderView.ViewModel(welcomeMessage: "Welcome", name: "", date: Date())
@@ -128,16 +129,25 @@ extension AccountSummaryViewController {
         
         fetchProfile(forUserId: "1") { result in
             switch result {
-            case .success(let profile):
-                self.profile = profile
-                self.configureTableHeaderView(with: profile)
-                self.tableView.reloadData()
-            case .failure(let error):
-                print(error.localizedDescription)
+                case .success(let profile):
+                    self.profile = profile
+                    self.configureTableHeaderView(with: profile)
+                    self.tableView.reloadData()
+                case .failure(let error):
+                    print(error.localizedDescription)
             }
         }
-
-        fetchAccounts()
+        
+        fetchAccounts(forUserId: "1") { result in
+            switch result {
+                case .success(let accounts):
+                    self.accounts = accounts
+                    self.configureTableCells(with: accounts)
+                    self.tableView.reloadData()
+                case .failure(let error):
+                    print(error.localizedDescription)
+            }
+        }
     }
     
     private func configureTableHeaderView(with profile: Profile) {
@@ -146,4 +156,12 @@ extension AccountSummaryViewController {
                                                     date: Date())
         headerViewModel.configure(viewModel: vm)
     }
-}
+    
+    private func configureTableCells(with accounts: [Account]) {
+           accountCellViewModels = accounts.map {
+               AccountSummaryCell.ViewModel(accountType: $0.type,
+                                            accountName: $0.name,
+                                            balance: $0.amount)
+           }
+       }
+   }

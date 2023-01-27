@@ -1,8 +1,8 @@
 //
-//  DecimalUtils.swift
+//  Date+Utils.swift
 //  BankApp
 //
-//  Created by Mustafa Bekirov on 08.01.2023.
+//  Created by Mustafa Bekirov on 27.01.2023.
 //
 
 import Foundation

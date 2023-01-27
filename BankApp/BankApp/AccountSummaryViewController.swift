@@ -9,8 +9,15 @@ import UIKit
 
 class AccountSummaryViewController: UIViewController {
     
-    var accounts: [AccountSummaryCell.ViewModel] = []
+    // Request Models
+    var profile: Profile?
+        
+    // View Models
+    var headerViewModel = AccountSummaryHeaderView.ViewModel(welcomeMessage: "Welcome", name: "", date: Date())
+    var accountCellViewModels: [AccountSummaryCell.ViewModel] = []
+    
     var tableView = UITableView()
+    var headerView = AccountSummaryHeaderView(frame: .zero)
     
     lazy var logoutBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logoutTapped))
@@ -33,7 +40,8 @@ extension AccountSummaryViewController {
     private func setup() {
         setupTableView()
         setupTableHeaderView()
-        fetchData()
+        // fetchAccounts()
+        fetchDataAndLoadViews()
     }
     
     private func setupTableView() {
@@ -58,13 +66,12 @@ extension AccountSummaryViewController {
     }
     
     private func setupTableHeaderView() {
-        let header = AccountSummaryHeaderView(frame: .zero)
-        
-        var size = header.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+        let headerView = AccountSummaryHeaderView(frame: .zero)
+        var size = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
         size.width = UIScreen.main.bounds.width
-        header.frame.size = size
+        headerView.frame.size = size
         
-        tableView.tableHeaderView = header
+        tableView.tableHeaderView = headerView
     }
 }
 
@@ -112,5 +119,31 @@ extension AccountSummaryViewController {
 extension AccountSummaryViewController {
     @objc func logoutTapped(sender: UIButton) {
         NotificationCenter.default.post(name: .logout, object: nil)
+    }
+}
+
+// MARK: - Networking
+extension AccountSummaryViewController {
+    private func fetchDataAndLoadViews() {
+        
+        fetchProfile(forUserId: "1") { result in
+            switch result {
+            case .success(let profile):
+                self.profile = profile
+                self.configureTableHeaderView(with: profile)
+                self.tableView.reloadData()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+
+        fetchAccounts()
+    }
+    
+    private func configureTableHeaderView(with profile: Profile) {
+        let vm = AccountSummaryHeaderView.ViewModel(welcomeMessage: "Good morning,",
+                                                    name: profile.firstName,
+                                                    date: Date())
+        headerViewModel.configure(viewModel: vm)
     }
 }

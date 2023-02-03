@@ -5,18 +5,19 @@
 //  Created by Mustafa Bekirov on 24.01.2023.
 //
 
+import Foundation
 import UIKit
 
 class ShakeyBellView: UIView {
     
     let imageView = UIImageView()
+    
     let buttonView = UIButton()
     
     let buttonHeight: CGFloat = 16
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setup()
         style()
         layout()
@@ -34,7 +35,7 @@ class ShakeyBellView: UIView {
 extension ShakeyBellView {
     
     func setup() {
-        let singleTap = UITapGestureRecognizer(target: self, action: #selector(imageViewTapped))
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(imageViewTapped(_: )))
         imageView.addGestureRecognizer(singleTap)
         imageView.isUserInteractionEnabled = true
     }

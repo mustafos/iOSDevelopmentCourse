@@ -5,6 +5,7 @@
 //  Created by Mustafa Bekirov on 02.01.2023.
 //
 
+import Foundation
 import UIKit
 
 class DummyViewController: UIViewController {
@@ -54,4 +55,3 @@ extension DummyViewController {
         logoutDelegate?.didLogout()
     }
 }
-

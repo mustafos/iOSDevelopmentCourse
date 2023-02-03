@@ -1,16 +1,64 @@
 import Foundation
 
-func getCommon(_ nums1: [Int], _ nums2: [Int]) -> Int {
-    var int1 = 0
-    var int2 = 0
-    if nums1[int1] == nums2[int2] {
-        return nums1[int1]
-    } else if nums1[int1] < nums2[int2] {
-        int1 += 1
-    } else {
-        int2 += 1
+/*
+ 1. Codeable
+ 2. URLSession
+ 3. Result
+ */
+
+let json = """
+        {
+        "id": "1",
+        "first_name": "Jonathan",
+        "last_name": "Smith",
+        }
+        """
+
+struct Profile: Codable {
+    let id: String
+    let firstName: String
+    let lastName: String
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case firstName = "first_name"
+        case lastName = "last_name"
     }
-    return -1
 }
 
-getCommon([1,4,5], [8,5,6])
+enum NetworkError: Error {
+    case serverError
+    case decodingError
+}
+
+func fetchProfile(forUserId userId: String, completion: @escaping (Result<Profile,NetworkError>) -> Void) {
+    let url = URL(string: "https://fierce-retreat-36855.herokuapp.com/bankey/profile/\(userId)")!
+
+    URLSession.shared.dataTask(with: url) { data, response, error in
+        guard let data = data, error == nil else {
+            completion(.failure(.serverError))
+            return
+        }
+        
+        do {
+            let profile = try JSONDecoder().decode(Profile.self, from: data)
+            completion(.success(profile))
+        } catch {
+            completion(.failure(.decodingError))
+        }
+    }.resume()
+
+}
+
+fetchProfile(forUserId: "1") { result in
+    switch result {
+    case .success(let profile):
+        print(profile)
+    case .failure(let error):
+        print(error.localizedDescription)
+    }
+}
+
+// Returning success/failure
+// completion(.success(posts))
+// completion(.failure(.domainError))

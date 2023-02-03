@@ -23,7 +23,7 @@ class AccountSummaryViewController: UIViewController {
     let refreshControl = UIRefreshControl()
     
     // Networking
-//    var profileManager: ProfileManageable = ProfileManager()
+    var profileManager: ProfileManageable = ProfileManager()
     
     // Error alert
     lazy var errorAlert: UIAlertController = {
@@ -65,10 +65,10 @@ extension AccountSummaryViewController {
         tableView.backgroundColor = appColor
         
         tableView.delegate = self
-//        tableView.dataSource = self
+        tableView.dataSource = self
         
         tableView.register(AccountSummaryCell.self, forCellReuseIdentifier: AccountSummaryCell.reuseID)
-//        tableView.register(SkeletonCell.self, forCellReuseIdentifier: SkeletonCell.reuseID)
+        tableView.register(SkeletonCell.self, forCellReuseIdentifier: SkeletonCell.reuseID)
         tableView.rowHeight = AccountSummaryCell.rowHeight
         tableView.tableFooterView = UIView()
         
@@ -98,33 +98,33 @@ extension AccountSummaryViewController {
     }
     
     private func setupSkeletons() {
-//        let row = Account.makeSkeleton()
-//        accounts = Array(repeating: row, count: 10)
+        let row = Account.makeSkeleton()
+        accounts = Array(repeating: row, count: 10)
         
         configureTableCells(with: accounts)
     }
 }
 
 // MARK: - UITableViewDataSource
-//extension AccountSummaryViewController: UITableViewDataSource {
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        guard !accountCellViewModels.isEmpty else { return UITableViewCell() }
-//        let account = accountCellViewModels[indexPath.row]
-//
-//        if isLoaded {
-//            let cell = tableView.dequeueReusableCell(withIdentifier: AccountSummaryCell.reuseID, for: indexPath) as! AccountSummaryCell
-//            cell.configure(with: account)
-//            return cell
-//        }
-//
-//        let cell = tableView.dequeueReusableCell(withIdentifier: SkeletonCell.reuseID, for: indexPath) as! SkeletonCell
-//        return cell
-//    }
+extension AccountSummaryViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard !accountCellViewModels.isEmpty else { return UITableViewCell() }
+        let account = accountCellViewModels[indexPath.row]
+
+        if isLoaded {
+            let cell = tableView.dequeueReusableCell(withIdentifier: AccountSummaryCell.reuseID, for: indexPath) as! AccountSummaryCell
+            cell.configure(with: account)
+            return cell
+        }
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: SkeletonCell.reuseID, for: indexPath) as! SkeletonCell
+        return cell
+    }
     
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return accountCellViewModels.count
-//    }
-//}
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return accountCellViewModels.count
+    }
+}
 
 // MARK: - UITableViewDelegate
 extension AccountSummaryViewController: UITableViewDelegate {
@@ -138,11 +138,11 @@ extension AccountSummaryViewController {
     private func fetchData() {
         let group = DispatchGroup()
         
-        // Testing - random number selection
+//         Testing - random number selection
         let userId = String(Int.random(in: 1..<4))
 
         fetchProfile(group: group, userId: userId)
-//        fetchAccounts(group: group, userId: userId)
+        fetchAccounts(group: group, userId: userId)
 
         group.notify(queue: .main) {
             self.reloadView()
@@ -151,28 +151,28 @@ extension AccountSummaryViewController {
     
     private func fetchProfile(group: DispatchGroup, userId: String) {
         group.enter()
-//        profileManager.fetchProfile(forUserId: userId) { result in
-//            switch result {
-//            case .success(let profile):
-//                self.profile = profile
-//            case .failure(let error):
-//                self.displayError(error)
-//            }
-//            group.leave()
-//        }
-//    }
+        profileManager.fetchProfile(forUserId: userId) { result in
+            switch result {
+            case .success(let profile):
+                self.profile = profile
+            case .failure(let error):
+                self.displayError(error)
+            }
+            group.leave()
+        }
+    }
     
-//    private func fetchAccounts(group: DispatchGroup, userId: String) {
-//        group.enter()
-//        fetchAccounts(forUserId: userId) { result in
-//            switch result {
-//            case .success(let accounts):
-//                self.accounts = accounts
-//            case .failure(let error):
-//                self.displayError(error)
-//            }
-//            group.leave()
-//        }
+    private func fetchAccounts(group: DispatchGroup, userId: String) {
+        group.enter()
+        fetchAccounts(forUserId: userId) { result in
+            switch result {
+            case .success(let accounts):
+                self.accounts = accounts
+            case .failure(let error):
+                self.displayError(error)
+            }
+            group.leave()
+        }
     }
     
     private func reloadView() {

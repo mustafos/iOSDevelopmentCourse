@@ -1,6 +1,6 @@
 # Online banking application
 
-A modern and user-friendly banking app is essential for meeting the needs of today's customers who demand seamless and convenient access to their financial information and services. The key features of a successful banking app include secure and efficient money transfers, real-time account information, and a range of financial management tools, such as budgeting and savings tools.
+A modern banking app is essential for meeting the needs of today's customers who demand seamless and convenient access to their financial information and services. The key features of a successful banking app include secure and efficient money transfers, real-time account information, and a range of financial management tools, such as budgeting and savings tools.
 
 To create a successful banking app, it is important to prioritize security and data privacy. This includes implementing robust encryption and authentication protocols, as well as ensuring that all sensitive financial information is stored securely on secure servers.
 

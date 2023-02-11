@@ -131,34 +131,31 @@ extension AccountSummaryViewController {
         group.enter()
         fetchProfile(forUserId: userId) { result in
             switch result {
-            case .success(let profile):
-                self.profile = profile
-            case .failure(let error):
-                self.displayError(error)
+                case .success(let profile):
+                    self.profile = profile
+                    self.configureTableHeaderView(with: profile)
+                case .failure(let error):
+                    self.displayError(error)
             }
             group.leave()
         }
-
+        
         group.enter()
         fetchAccounts(forUserId: userId) { result in
             switch result {
-            case .success(let accounts):
-                self.accounts = accounts
-            case .failure(let error):
-                self.displayError(error)
+                case .success(let accounts):
+                    self.accounts = accounts
+                    self.configureTableCells(with: accounts)
+                case .failure(let error):
+                    print(error.localizedDescription)
             }
             group.leave()
         }
         
         group.notify(queue: .main) {
-            self.tableView.refreshControl?.endRefreshing()
-            
-            guard let profile = self.profile else { return }
-            
             self.isLoaded = true
-            self.configureTableHeaderView(with: profile)
-            self.configureTableCells(with: self.accounts)
             self.tableView.reloadData()
+            self.tableView.refreshControl?.endRefreshing()
         }
     }
     

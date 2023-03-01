@@ -38,13 +38,12 @@ extension ViewController {
     
     private func setupNewPassword() {
         let newPasswordValidation: CustomValidation = { text in
-            // Empty text
+            
             guard let text = text, !text.isEmpty else {
                 self.statusView.reset()
                 return (false, "Enter your password")
             }
             
-            // Valid characters
             let validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,@:?!()$\\/#"
             let invalidSet = CharacterSet(charactersIn: validChars).inverted
             guard text.rangeOfCharacter(from: invalidSet) == nil else {
@@ -52,7 +51,6 @@ extension ViewController {
                 return (false, "Enter valid special chars (.,@:?!()$\\/#) with no spaces")
             }
             
-            // Criteria met
             self.statusView.updateDisplay(text)
             if !self.statusView.validate(text) {
                 return (false, "Your password must meet the requirements below")
@@ -115,8 +113,10 @@ extension ViewController {
         resetButton.addTarget(self, action: #selector(resetPasswordButtonTapped), for: .primaryActionTriggered)
     }
     
-    func layout() {
+    func layout()
+    {
         stackView.addArrangedSubview(newPasswordTextField)
+        
         stackView.addArrangedSubview(statusView)
         stackView.addArrangedSubview(confirmPasswordTextField)
         stackView.addArrangedSubview(resetButton)
@@ -133,6 +133,7 @@ extension ViewController {
 
 // MARK: - PasswordTextFieldDelegate
 extension ViewController: PasswordTextFieldDelegate {
+    
     func editingChanged(_ sender: PasswordTextField) {
         if sender === newPasswordTextField {
             statusView.updateDisplay(sender.textField.text ?? "")
@@ -148,6 +149,8 @@ extension ViewController: PasswordTextFieldDelegate {
             _ = confirmPasswordTextField.validate()
         }
     }
+    
+
 }
 
 // MARK: Keyboard
@@ -175,6 +178,19 @@ extension ViewController {
     }
 }
 
+// MARK: Tests
+extension ViewController {
+    var newPasswordText: String? {
+        get { return newPasswordTextField.text }
+        set { newPasswordTextField.text = newValue}
+    }
+    
+    var confirmPasswordText: String? {
+        get { return confirmPasswordTextField.text }
+        set { confirmPasswordTextField.text = newValue}
+    }
+}
+
 // MARK: Actions
 extension ViewController {
 
@@ -198,3 +214,4 @@ extension ViewController {
         present(alert, animated: true, completion: nil)
     }
 }
+

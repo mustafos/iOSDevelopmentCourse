@@ -9,7 +9,7 @@ import XCTest
 
 @testable import Password
 
-class ViewControllerTests_Confirm_Password_Validation: XCTestCase {
+class ViewControllerTests_NewPassword_Validation: XCTestCase {
 
     var vc: ViewController!
     let validPassword = "12345678Aa!"
@@ -19,14 +19,20 @@ class ViewControllerTests_Confirm_Password_Validation: XCTestCase {
         super.setUp()
         vc = ViewController()
     }
+
+    /*
+     Here we trigger those criteria blocks by entering text,
+     clicking the reset password button, and then checking
+     the error label text for the right message.
+     */
     
     func testEmptyPassword() throws {
-        vc.confirmPasswordText = ""
+        vc.newPasswordText = ""
         vc.resetPasswordButtonTapped(sender: UIButton())
         
-        XCTAssertEqual(vc.confirmPasswordTextField.errorLabel.text!, "Enter your password.")
+        XCTAssertEqual(vc.newPasswordTextField.errorLabel.text!, "Enter your password")
     }
-
+    
     func testInvalidPassword() throws {
         vc.newPasswordText = "🕹"
         vc.resetPasswordButtonTapped(sender: UIButton())
@@ -46,6 +52,25 @@ class ViewControllerTests_Confirm_Password_Validation: XCTestCase {
         vc.resetPasswordButtonTapped(sender: UIButton())
         
         XCTAssertEqual(vc.newPasswordTextField.errorLabel.text!, "")
+    }
+}
+
+class ViewControllerTests_Confirm_Password_Validation: XCTestCase {
+
+    var vc: ViewController!
+    let validPassword = "12345678Aa!"
+    let tooShort = "1234Aa!"
+    
+    override func setUp() {
+        super.setUp()
+        vc = ViewController()
+    }
+    
+    func testEmptyPassword() throws {
+        vc.confirmPasswordText = ""
+        vc.resetPasswordButtonTapped(sender: UIButton())
+        
+        XCTAssertEqual(vc.confirmPasswordTextField.errorLabel.text!, "Enter your password.")
     }
     
     func testPasswordsDoNotMatch() throws {

@@ -5,7 +5,6 @@
 //  Created by Mustafa Bekirov on 25.02.2023.
 //
 
-import Foundation
 import UIKit
 
 class PasswordCriteriaView: UIView {
@@ -17,7 +16,7 @@ class PasswordCriteriaView: UIView {
     let checkmarkImage = UIImage(systemName: "checkmark.circle")!.withTintColor(.systemGreen, renderingMode: .alwaysOriginal)
     let xmarkImage = UIImage(systemName: "xmark.circle")!.withTintColor(.systemRed, renderingMode: .alwaysOriginal)
     let circleImage = UIImage(systemName: "circle")!.withTintColor(.tertiaryLabel, renderingMode: .alwaysOriginal)
-    
+        
     var isCriteriaMet: Bool = false {
         didSet {
             if isCriteriaMet {
@@ -28,14 +27,11 @@ class PasswordCriteriaView: UIView {
         }
     }
     
-    func reset() {
-        isCriteriaMet = false
-        imageView.image = circleImage
-    }
-    
     init(text: String) {
         super.init(frame: .zero)
         
+        isCriteriaMet = false
+        imageView.image = circleImage
         label.text = text
         
         style()
@@ -49,10 +45,14 @@ class PasswordCriteriaView: UIView {
     override var intrinsicContentSize: CGSize {
         return CGSize(width: 200, height: 40)
     }
+    
+    func reset() {
+        isCriteriaMet = false
+        imageView.image = circleImage
+    }
 }
 
 extension PasswordCriteriaView {
-    
     func style() {
         translatesAutoresizingMaskIntoConstraints = false
         
@@ -73,7 +73,7 @@ extension PasswordCriteriaView {
         
         addSubview(stackView)
         
-        // Stack
+        // StackView
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: topAnchor),
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -81,7 +81,7 @@ extension PasswordCriteriaView {
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
         
-        // Image
+        // ImageView
         NSLayoutConstraint.activate([
             imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor)
         ])

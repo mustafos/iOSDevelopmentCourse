@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6A00CFF629AEA574007206E6 /* PasswordStatusViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A00CFF529AEA574007206E6 /* PasswordStatusViewTests.swift */; };
 		6A00CFF829AEA9BF007206E6 /* ViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A00CFF729AEA9BF007206E6 /* ViewControllerTests.swift */; };
+		6A1D58AC29AEAE6100114195 /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1D58AB29AEAE6000114195 /* String+Utils.swift */; };
 		6A2EB3EF29A965BE00C2CE98 /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2EB3EE29A965BE00C2CE98 /* PasswordTextField.swift */; };
 		6A74E74A29AA9E62000973D1 /* PasswordCritiera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A74E74929AA9E62000973D1 /* PasswordCritiera.swift */; };
 		6A7D9BF929AEA4240094167C /* PasswordCriteria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7D9BF829AEA4240094167C /* PasswordCriteria.swift */; };
@@ -34,6 +35,7 @@
 /* Begin PBXFileReference section */
 		6A00CFF529AEA574007206E6 /* PasswordStatusViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordStatusViewTests.swift; sourceTree = SOURCE_ROOT; };
 		6A00CFF729AEA9BF007206E6 /* ViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerTests.swift; sourceTree = SOURCE_ROOT; };
+		6A1D58AB29AEAE6000114195 /* String+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Utils.swift"; sourceTree = "<group>"; };
 		6A2EB3EE29A965BE00C2CE98 /* PasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextField.swift; sourceTree = "<group>"; };
 		6A74E74929AA9E62000973D1 /* PasswordCritiera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCritiera.swift; sourceTree = "<group>"; };
 		6A7D9BEF29AEA4040094167C /* PasswordTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PasswordTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,9 +69,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6A1D58AA29AEAE6000114195 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				6A1D58AB29AEAE6000114195 /* String+Utils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		6A7D9BF029AEA4040094167C /* PasswordTests */ = {
 			isa = PBXGroup;
 			children = (
+				6A1D58AA29AEAE6000114195 /* Utils */,
 				6A7D9BF829AEA4240094167C /* PasswordCriteria.swift */,
 				6A00CFF529AEA574007206E6 /* PasswordStatusViewTests.swift */,
 				6A00CFF729AEA9BF007206E6 /* ViewControllerTests.swift */,
@@ -237,6 +248,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A1D58AC29AEAE6100114195 /* String+Utils.swift in Sources */,
 				6A00CFF829AEA9BF007206E6 /* ViewControllerTests.swift in Sources */,
 				6A7D9BF929AEA4240094167C /* PasswordCriteria.swift in Sources */,
 				6A00CFF629AEA574007206E6 /* PasswordStatusViewTests.swift in Sources */,

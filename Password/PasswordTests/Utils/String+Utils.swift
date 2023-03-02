@@ -2,7 +2,7 @@
 //  String+Utils.swift
 //  PasswordTests
 //
-//  Created by Ramon Ferreira do Nascimento on 23/03/22.
+//  Created by Mustafa Bekirov on 01.03.2023.
 //
 
 import Foundation
